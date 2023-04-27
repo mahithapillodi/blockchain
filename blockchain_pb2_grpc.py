@@ -17,6 +17,11 @@ class blockchainStub(object):
         self.issueTX = channel.unary_unary(
                 '/blockchain/issueTX',
                 request_serializer=blockchain__pb2.issue_tx.SerializeToString,
+                response_deserializer=blockchain__pb2.tx_hash.FromString,
+                )
+        self.printBlockchain = channel.unary_unary(
+                '/blockchain/printBlockchain',
+                request_serializer=blockchain__pb2.print_request.SerializeToString,
                 response_deserializer=blockchain__pb2.EmptyMessage.FromString,
                 )
         self.propBlock = channel.unary_unary(
@@ -34,12 +39,23 @@ class blockchainStub(object):
                 request_serializer=blockchain__pb2.update_replica.SerializeToString,
                 response_deserializer=blockchain__pb2.replica_status.FromString,
                 )
+        self.suspend = channel.unary_unary(
+                '/blockchain/suspend',
+                request_serializer=blockchain__pb2.suspend_request.SerializeToString,
+                response_deserializer=blockchain__pb2.EmptyMessage.FromString,
+                )
 
 
 class blockchainServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def issueTX(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def printBlockchain(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -63,12 +79,23 @@ class blockchainServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def suspend(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_blockchainServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'issueTX': grpc.unary_unary_rpc_method_handler(
                     servicer.issueTX,
                     request_deserializer=blockchain__pb2.issue_tx.FromString,
+                    response_serializer=blockchain__pb2.tx_hash.SerializeToString,
+            ),
+            'printBlockchain': grpc.unary_unary_rpc_method_handler(
+                    servicer.printBlockchain,
+                    request_deserializer=blockchain__pb2.print_request.FromString,
                     response_serializer=blockchain__pb2.EmptyMessage.SerializeToString,
             ),
             'propBlock': grpc.unary_unary_rpc_method_handler(
@@ -85,6 +112,11 @@ def add_blockchainServicer_to_server(servicer, server):
                     servicer.updateReplica,
                     request_deserializer=blockchain__pb2.update_replica.FromString,
                     response_serializer=blockchain__pb2.replica_status.SerializeToString,
+            ),
+            'suspend': grpc.unary_unary_rpc_method_handler(
+                    servicer.suspend,
+                    request_deserializer=blockchain__pb2.suspend_request.FromString,
+                    response_serializer=blockchain__pb2.EmptyMessage.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -109,6 +141,23 @@ class blockchain(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/blockchain/issueTX',
             blockchain__pb2.issue_tx.SerializeToString,
+            blockchain__pb2.tx_hash.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def printBlockchain(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/blockchain/printBlockchain',
+            blockchain__pb2.print_request.SerializeToString,
             blockchain__pb2.EmptyMessage.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -161,5 +210,22 @@ class blockchain(object):
         return grpc.experimental.unary_unary(request, target, '/blockchain/updateReplica',
             blockchain__pb2.update_replica.SerializeToString,
             blockchain__pb2.replica_status.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def suspend(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/blockchain/suspend',
+            blockchain__pb2.suspend_request.SerializeToString,
+            blockchain__pb2.EmptyMessage.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
