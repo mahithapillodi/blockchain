@@ -58,7 +58,10 @@ message return_hash {
 message update_replica {
     int32 last_common_block_index = 1;
     string last_common_block_hash = 2;
-    repeated block_msg blocks = 3;
+    repeated string transactions = 2;
+    string block_hash = 3;
+    string prev_hash = 4;
+    int32 nonce = 5;
 }
 
 message replica_status {
