@@ -2,29 +2,32 @@ syntax = "proto3";
 
 
 service blockchain {
-    rpc issueTX (issue_tx) returns (Empty) {}    
+    rpc issueTX (issue_tx) returns (EmptyMessage) {}    
     rpc propBlock (append_block_request) returns (block_status) {}
     rpc checkHashes (request_hash) returns (return_hash) {}
     rpc updateReplica (update_replica) returns (replica_status) {}
     }
     
+
+message EmptyMessage {}
+
 message block_msg {
     repeated issue_tx transactions = 1;
     string block_hash = 2;
     string prev_hash = 3;
-    int nonce = 4;
+    int32 nonce = 4;
 }
     
 message issue_tx {
-    int src = 1;
-    int dst = 2;
+    int32 src = 1;
+    int32 dst = 2;
     float amnt = 3;
     float reward = 4;
-    int timestamp = 5;
+    int32 timestamp = 5;
 }
 
 message append_block_request {
-    int chain_length = 1;
+    int32 chain_length = 1;
     block_msg new_block = 2;
 }
 
@@ -33,14 +36,15 @@ message block_status{
 }
 
 message request_hash {
-    int block_index = 1;
+    int32 block_index = 1;
+}
 
 message return_hash {
     string block_hash = 1;
 }
 
 message update_replica {
-    int last_common_block_index = 1;
+    int32 last_common_block_index = 1;
     string last_common_block_hash = 2;
     repeated block_msg blocks = 3;
 }
