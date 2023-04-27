@@ -1,23 +1,24 @@
 syntax = "proto3";
 
 
+
 service blockchain {
     rpc issueTX (issue_tx) returns (tx_hash) {}    
-    rpc printBlockchain (print_request) returns (Empty) {}
+    rpc printBlockchain (print_request) returns (EmptyMessage) {}
     rpc propBlock (append_block_request) returns (block_status) {}
     rpc checkHashes (request_hash) returns (return_hash) {}
     rpc updateReplica (update_replica) returns (replica_status) {}
-    rpc suspend (suspend_request) return (Empty) {}
+    rpc suspend (suspend_request) returns (EmptyMessage) {}
     }
         
-
+message EmptyMessage {}
         
 message issue_tx {
-    int src = 1;
-    int dst = 2;
+    int32 src = 1;
+    int32 dst = 2;
     float amnt = 3;
     float reward = 4;
-    int timestamp = 5;
+    int32 timestamp = 5;
 }
 
 message tx_hash {
@@ -26,17 +27,17 @@ message tx_hash {
 
 
 message print_request {
-    int src = 1;
-    int dst = 2;
+    int32 src = 1;
+    int32 dst = 2;
 }
 
 
 message append_block_request {
-    int chain_length = 1;
-    repeated string transactions = 1;
-    string block_hash = 2;
-    string prev_hash = 3;
-    int nonce = 4;
+    int32 chain_length = 1;
+    repeated string transactions = 2;
+    string block_hash = 3;
+    string prev_hash = 4;
+    int32 nonce = 5;
 }
 
 message block_status{
@@ -45,16 +46,17 @@ message block_status{
 
 
 message request_hash {
-    int block_index = 1;
+    int32 block_index = 1;
+}
 
 message return_hash {
     string block_hash = 1;
-    int chain_length = 2;
+    int32 chain_length = 2;
 }
 
 
 message update_replica {
-    int last_common_block_index = 1;
+    int32 last_common_block_index = 1;
     string last_common_block_hash = 2;
     repeated block_msg blocks = 3;
 }
