@@ -18,7 +18,7 @@ message issue_tx {
     int32 dst = 2;
     float amnt = 3;
     float reward = 4;
-    int32 timestamp = 5;
+    float timestamp = 5;
 }
 
 message tx_hash {
