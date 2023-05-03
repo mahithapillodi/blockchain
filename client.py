@@ -1,50 +1,64 @@
-
+import random
+import time
 import grpc
 import blockchain_pb2
 import blockchain_pb2_grpc
-import sys
 
 
-# Terminate the client
-def terminate():
-    print("Terminating client.")
-    sys.exit(0)
+class Client:
+    def __init__(self, node_address):
+        self.node_address = node_address
+        self.channel = grpc.insecure_channel(node_address)
+        self.stub = blockchain_pb2_grpc.blockchainStub(self.channel)
 
-def connect(ip_addr_port_num):
-    global SERVER
-    SERVER = ip_addr_port_num
+    def issueTX(self, src, dst, amnt, reward):
+        request = blockchain_pb2.issue_tx(src=int(src), dst=int(dst), amnt=float(amnt), reward=float(reward), timestamp=int(time.time()))
+        response = self.stub.issueTX(request)
+        print("TX Hash:", response.hash)
 
-# Initialize the client
-def init():
-    print("Initializing...")
-    
-    global SERVERS
-    SERVERS = {}
+    def propBlock(self, chain_length, transactions, block_hash, prev_hash, nonce):
+        request = blockchain_pb2.append_block_request(chain_length=chain_length, transactions=transactions, block_hash=block_hash, prev_hash=prev_hash, nonce=nonce)
+        response = self.stub.propBlock(request)
+        print(response)
+
+    def checkHashes(self, block_index):
+        request = blockchain_pb2.request_hash(block_index=block_index)
+        response = self.stub.checkHashes(request)
+        print(response)
+
+    def updateReplica(self, last_common_block_index, last_common_block_hash, transactions, block_hash, prev_hash, nonce):
+        request = blockchain_pb2.update_replica(last_common_block_index=last_common_block_index, last_common_block_hash=last_common_block_hash, transactions=transactions, block_hash=block_hash, prev_hash=prev_hash, nonce=nonce)
+        response = self.stub.updateReplica(request)
+        print(response)
+
+    def suspend(self, temp):
+        # request = blockchain_pb2.suspend_request(temp=temp)
+        # response = self.stub.suspend(request)
+        print('suspended')
+
+
+if __name__ == "__main__":
+
+    # Read node addresses from config file
+    nodes = []
     with open("config.conf", "r") as f:
         for line in f:
-            SERVERS[int(line.split(" ")[0])] = f'{line.split(" ")[1]}:{line.split(" ")[2].rstrip()}'
+            parts = line.strip().split()
+            if len(parts) >= 2:
+                node_address = f"{parts[1]}:{parts[2]}"
+                nodes.append(node_address)
+    print(nodes)
+    # Set up client connections to each node in the network
+    clients = [Client(node) for node in nodes]
 
-    print("SERVERS accepting connections:")
-    for node, ip_port in SERVERS.items():
-        print(node, ip_port)
-
-    while True:
-        try:
-            user_input = input(">")
-            parsed_input = parse(user_input)
-            msg_type = parsed_input[0]
-
-            if  msg_type == "Connect" and len(parsed_input) >= 2 : 
-                connect(parsed_input[1])
-                
-            elif msg_type == "Quit":
-                terminate()
-                
-            else:
-                print("Invalid command! Please try again.")
-
-        except KeyboardInterrupt:
-            terminate()
-            
-if __name__ == "__main__":
-    init()
+    # Send a series of random suspend and issueTX requests to each node in the network
+    for i in range(10):
+        client = random.choice(clients)
+        if random.random() < 0.5:
+            print(f"Sending suspend request to {client.node_address}")
+            client.suspend(temp=random.randint(0, 100))
+        else:
+            src, dst = random.sample(range(1, 11), 2)
+            amnt, reward = random.uniform(0, 10), random.uniform(0, 1)
+            print(f"Sending issueTX request to {client.node_address}: src={src}, dst={dst}, amnt={amnt}, reward={reward}")
+            client.issueTX(src, dst, amnt, reward)
