@@ -14,8 +14,8 @@ service blockchain {
 message EmptyMessage {}
         
 message issue_tx {
-    int32 src = 1;
-    int32 dst = 2;
+    int64 src = 1;
+    int64 dst = 2;
     float amnt = 3;
     float reward = 4;
     float timestamp = 5;
@@ -27,41 +27,43 @@ message tx_hash {
 
 
 message print_request {
-    int32 src = 1;
-    int32 dst = 2;
+    int64 src = 1;
+    int64 dst = 2;
 }
 
 
 message append_block_request {
-    int32 chain_length = 1;
-    repeated string transactions = 2;
-    string block_hash = 3;
-    string prev_hash = 4;
-    int32 nonce = 5;
+    int64 chain_length = 1;
+    string transactions = 2;
+    int64 block_hash = 3;
+    int64 prev_hash = 4;
+    int64 nonce = 5;
+    int32 src_server = 6;
 }
 
 message block_status{
     bool status = 1;
+    int32 chain_len = 2;
 }
 
 
 message request_hash {
-    int32 block_index = 1;
+    int64 block_index = 1;
 }
 
 message return_hash {
     string block_hash = 1;
-    int32 chain_length = 2;
+    int64 chain_length = 2;
 }
 
 
 message update_replica {
-    int32 last_common_block_index = 1;
+    int64 last_common_block_index = 1;
     string last_common_block_hash = 2;
-    repeated string transactions = 3;
+    string transactions = 3;
     string block_hash = 4;
     string prev_hash = 5;
-    int32 nonce = 6;
+    int64 nonce = 6;
 }
 
 message replica_status {
@@ -69,6 +71,5 @@ message replica_status {
 }
 
 message suspend_request {
-  int32 temp = 1;
+  int64 temp = 1;
 }
-
