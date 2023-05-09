@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10\x62lockchain.proto\"\x0e\n\x0c\x45mptyMessage\"U\n\x08issue_tx\x12\x0b\n\x03src\x18\x01 \x01(\x05\x12\x0b\n\x03\x64st\x18\x02 \x01(\x05\x12\x0c\n\x04\x61mnt\x18\x03 \x01(\x02\x12\x0e\n\x06reward\x18\x04 \x01(\x02\x12\x11\n\ttimestamp\x18\x05 \x01(\x02\"\x17\n\x07tx_hash\x12\x0c\n\x04hash\x18\x01 \x01(\t\")\n\rprint_request\x12\x0b\n\x03src\x18\x01 \x01(\x05\x12\x0b\n\x03\x64st\x18\x02 \x01(\x05\"x\n\x14\x61ppend_block_request\x12\x14\n\x0c\x63hain_length\x18\x01 \x01(\x05\x12\x14\n\x0ctransactions\x18\x02 \x03(\t\x12\x12\n\nblock_hash\x18\x03 \x01(\t\x12\x11\n\tprev_hash\x18\x04 \x01(\t\x12\r\n\x05nonce\x18\x05 \x01(\x05\"\x1e\n\x0c\x62lock_status\x12\x0e\n\x06status\x18\x01 \x01(\x08\"#\n\x0crequest_hash\x12\x13\n\x0b\x62lock_index\x18\x01 \x01(\x05\"7\n\x0breturn_hash\x12\x12\n\nblock_hash\x18\x01 \x01(\t\x12\x14\n\x0c\x63hain_length\x18\x02 \x01(\x05\"\x9d\x01\n\x0eupdate_replica\x12\x1f\n\x17last_common_block_index\x18\x01 \x01(\x05\x12\x1e\n\x16last_common_block_hash\x18\x02 \x01(\t\x12\x14\n\x0ctransactions\x18\x03 \x03(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x11\n\tprev_hash\x18\x05 \x01(\t\x12\r\n\x05nonce\x18\x06 \x01(\x05\")\n\x0ereplica_status\x12\x17\n\x0flast_block_hash\x18\x01 \x01(\t\"\x1f\n\x0fsuspend_request\x12\x0c\n\x04temp\x18\x01 \x01(\x05\x32\xa8\x02\n\nblockchain\x12 \n\x07issueTX\x12\t.issue_tx\x1a\x08.tx_hash\"\x00\x12\x32\n\x0fprintBlockchain\x12\x0e.print_request\x1a\r.EmptyMessage\"\x00\x12\x33\n\tpropBlock\x12\x15.append_block_request\x1a\r.block_status\"\x00\x12,\n\x0b\x63heckHashes\x12\r.request_hash\x1a\x0c.return_hash\"\x00\x12\x33\n\rupdateReplica\x12\x0f.update_replica\x1a\x0f.replica_status\"\x00\x12,\n\x07suspend\x12\x10.suspend_request\x1a\r.EmptyMessage\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10\x62lockchain.proto\"\x0e\n\x0c\x45mptyMessage\"U\n\x08issue_tx\x12\x0b\n\x03src\x18\x01 \x01(\x03\x12\x0b\n\x03\x64st\x18\x02 \x01(\x03\x12\x0c\n\x04\x61mnt\x18\x03 \x01(\x02\x12\x0e\n\x06reward\x18\x04 \x01(\x02\x12\x11\n\ttimestamp\x18\x05 \x01(\x02\"\x17\n\x07tx_hash\x12\x0c\n\x04hash\x18\x01 \x01(\t\")\n\rprint_request\x12\x0b\n\x03src\x18\x01 \x01(\x03\x12\x0b\n\x03\x64st\x18\x02 \x01(\x03\"\x8c\x01\n\x14\x61ppend_block_request\x12\x14\n\x0c\x63hain_length\x18\x01 \x01(\x03\x12\x14\n\x0ctransactions\x18\x02 \x01(\t\x12\x12\n\nblock_hash\x18\x03 \x01(\x03\x12\x11\n\tprev_hash\x18\x04 \x01(\x03\x12\r\n\x05nonce\x18\x05 \x01(\x03\x12\x12\n\nsrc_server\x18\x06 \x01(\x05\"1\n\x0c\x62lock_status\x12\x0e\n\x06status\x18\x01 \x01(\x08\x12\x11\n\tchain_len\x18\x02 \x01(\x05\"#\n\x0crequest_hash\x12\x13\n\x0b\x62lock_index\x18\x01 \x01(\x03\"7\n\x0breturn_hash\x12\x12\n\nblock_hash\x18\x01 \x01(\t\x12\x14\n\x0c\x63hain_length\x18\x02 \x01(\x03\"\x9d\x01\n\x0eupdate_replica\x12\x1f\n\x17last_common_block_index\x18\x01 \x01(\x03\x12\x1e\n\x16last_common_block_hash\x18\x02 \x01(\t\x12\x14\n\x0ctransactions\x18\x03 \x01(\t\x12\x12\n\nblock_hash\x18\x04 \x01(\t\x12\x11\n\tprev_hash\x18\x05 \x01(\t\x12\r\n\x05nonce\x18\x06 \x01(\x03\")\n\x0ereplica_status\x12\x17\n\x0flast_block_hash\x18\x01 \x01(\t\"\x1f\n\x0fsuspend_request\x12\x0c\n\x04temp\x18\x01 \x01(\x03\x32\xa8\x02\n\nblockchain\x12 \n\x07issueTX\x12\t.issue_tx\x1a\x08.tx_hash\"\x00\x12\x32\n\x0fprintBlockchain\x12\x0e.print_request\x1a\r.EmptyMessage\"\x00\x12\x33\n\tpropBlock\x12\x15.append_block_request\x1a\r.block_status\"\x00\x12,\n\x0b\x63heckHashes\x12\r.request_hash\x1a\x0c.return_hash\"\x00\x12\x33\n\rupdateReplica\x12\x0f.update_replica\x1a\x0f.replica_status\"\x00\x12,\n\x07suspend\x12\x10.suspend_request\x1a\r.EmptyMessage\"\x00\x62\x06proto3')
 
 
 
@@ -118,20 +118,20 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _TX_HASH._serialized_end=146
   _PRINT_REQUEST._serialized_start=148
   _PRINT_REQUEST._serialized_end=189
-  _APPEND_BLOCK_REQUEST._serialized_start=191
-  _APPEND_BLOCK_REQUEST._serialized_end=311
-  _BLOCK_STATUS._serialized_start=313
-  _BLOCK_STATUS._serialized_end=343
-  _REQUEST_HASH._serialized_start=345
-  _REQUEST_HASH._serialized_end=380
-  _RETURN_HASH._serialized_start=382
-  _RETURN_HASH._serialized_end=437
-  _UPDATE_REPLICA._serialized_start=440
-  _UPDATE_REPLICA._serialized_end=597
-  _REPLICA_STATUS._serialized_start=599
-  _REPLICA_STATUS._serialized_end=640
-  _SUSPEND_REQUEST._serialized_start=642
-  _SUSPEND_REQUEST._serialized_end=673
-  _BLOCKCHAIN._serialized_start=676
-  _BLOCKCHAIN._serialized_end=972
+  _APPEND_BLOCK_REQUEST._serialized_start=192
+  _APPEND_BLOCK_REQUEST._serialized_end=332
+  _BLOCK_STATUS._serialized_start=334
+  _BLOCK_STATUS._serialized_end=383
+  _REQUEST_HASH._serialized_start=385
+  _REQUEST_HASH._serialized_end=420
+  _RETURN_HASH._serialized_start=422
+  _RETURN_HASH._serialized_end=477
+  _UPDATE_REPLICA._serialized_start=480
+  _UPDATE_REPLICA._serialized_end=637
+  _REPLICA_STATUS._serialized_start=639
+  _REPLICA_STATUS._serialized_end=680
+  _SUSPEND_REQUEST._serialized_start=682
+  _SUSPEND_REQUEST._serialized_end=713
+  _BLOCKCHAIN._serialized_start=716
+  _BLOCKCHAIN._serialized_end=1012
 # @@protoc_insertion_point(module_scope)
