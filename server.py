@@ -458,7 +458,7 @@ def print_commit_times_and_wallet():
     print("COMMITTED BLOCKS:", COMMITTED_BLOCKS)
     print("COMMIT TIMES:", commit_times)
     print("NUM TXS IN PENDING POOL:", uncommitted_txs)
-    return list(commit_times.values())
+    return commit_times
 
 def txs_in_uncommitted_blocks():
     global BLOCKCHAIN, COMMITTED_BLOCKS
