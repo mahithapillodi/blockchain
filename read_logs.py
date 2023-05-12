@@ -21,13 +21,15 @@ for i, file_name in enumerate(file_names):
     log = read_log(file_name)
     if len(log) == 0:
         continue
-    if type(log[0]) == list:
-        for item in log:
-            print(item)
-    elif type(log) == dict:
+    
+    if type(log) == dict:
         for tx, commit_time in log.items():
             print("tx:", tx)
             print("commit_time:", commit_time)
+
+    elif type(log[0]) == list:
+        for item in log:
+            print(item)
     else:
         print(log)
     print("\n")
