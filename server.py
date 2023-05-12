@@ -16,6 +16,13 @@ from datetime import datetime
 
 NUM_TO_BATCH = 10
 
+def get_wallets():
+    with open("logs/wallets.out", 'rb') as handle:
+        wallets = pickle.load(handle)
+    return wallets
+
+
+
 #RPC STATE UPDATE HANDLERS
 ##handle issued_tx msg
 #   Add transaction to pending pool.
@@ -153,7 +160,7 @@ def init_state():
     global TIME_TO_COMMIT, COMMITTED_BLOCKS, LAST_COMMITTED_BLOCK_INDEX
     global WALLET_LOG
     
-    WALLETS = [10000] * len(SERVERS)
+    WALLETS = get_wallets()
     WALLET_LOG = [WALLETS] ##captures snapshots of wallet states
     print("Initializing state... init [WALLETS] amnts are:", WALLETS)
 
@@ -432,12 +439,13 @@ def save_to_pickle_file(data, file_name):
     return
 
 def save_logs(commit_times):
-    global WALLET_LOG, COMMITTED_BLOCKS, BLOCKCHAIN
+    global WALLET_LOG, COMMITTED_BLOCKS, BLOCKCHAIN, WALLETS
     
     tx_list = []
     for block in BLOCKCHAIN.blocks:
         for tx in block.tx_strs:
             tx_list.append(tx)
+    save_to_pickle_file(WALLETS, "wallets.out")
     save_to_pickle_file(tx_list, "transactions.out") ##ordered list of transactions
     save_to_pickle_file(WALLET_LOG, "wallet_log.out") ##log of wallet states
     save_to_pickle_file(COMMITTED_BLOCKS, "committed_blocks.out") ##list of committed blocks

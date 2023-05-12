@@ -20,24 +20,6 @@ from datetime import datetime as dt
 
 class Blockchain:
     class Block:
-        '''
-        class Transaction:
-            def __init__(self, string): #src, dst, amnt, reward, ts, string = ""):
-                self.str = string
-                self.unpack_tx_string(string)
-                    
-            def unpack_tx_string(self, string):
-                tx_items = string.split()
-                if len(tx_items) != 5:
-                    raise Exception("Invalid transaction string...")
-                self.src, self.dst = int(tx_items[0][1:]), int(tx_items[1])
-                self.amnt, self.reward = float(tx_items[2]), float(tx_items[2])
-                self.ts = float(tx_items[4][:-1])
-                return
-    
-            def __str__(self):
-                return "src: %d; dst: %s; amnt: %s; reward: %s, timestamp: %s" % (self.src, self.dst, self.amnt, self.reward, self.ts)
-        '''
         def __init__(self, server_id, tx_list = [], prev_hash = "", nonce = ""):
             self.server_id = server_id
             self.prev_hash = prev_hash
@@ -145,7 +127,6 @@ class Blockchain:
         return timed_out
 
 
-#FOR TESTING:
 class Transaction:
     def __init__(self, string): #src, dst, amnt, reward, ts, string = ""):
         self.str = string
